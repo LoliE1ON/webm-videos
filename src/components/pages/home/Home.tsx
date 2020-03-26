@@ -8,6 +8,7 @@ const Welcome = ({children}: {children: any}) => (
 
 const Home = ({children}: {children: any}) => (
   <div>
+      Home
       {children}
   </div>
 );
