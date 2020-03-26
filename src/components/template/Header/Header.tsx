@@ -1,22 +1,14 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
-import {AppBar, createStyles, IconButton, Button, Theme, Toolbar, Typography, withStyles, Drawer} from "@material-ui/core";
+import {AppBar, IconButton, Button, Toolbar, Typography, withStyles, Drawer} from "@material-ui/core";
 import AppsIcon from '@material-ui/icons/Apps';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {connect} from "react-redux";
-import {RootState} from "../../store/reducers";
+import {RootState} from "../../../store/reducers";
+import {styles} from "./styles";
+import {IHeaderProps} from "./types";
 
-interface IHeaderProps {
-    classes: {
-        root: string,
-        menuButton: string,
-        title: string,
-        drawer: string,
-        drawerPaper:string,
-        drawerHeader: string
-    };
-}
 
 const HeaderComponent = (props: IHeaderProps) => {
     const { classes } = props;
@@ -67,37 +59,8 @@ const HeaderComponent = (props: IHeaderProps) => {
     );
 };
 
-const drawerWidth = 240;
-const styles = (theme: Theme) => createStyles({
-    root: {
-        flexGrow: 1,
-        width: '100vw',
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-});
-
 const mapStateToProps = (state: RootState) => ({
-
+ // ...
 });
 
 export const Header = connect(mapStateToProps, null)(withStyles(styles)(HeaderComponent));
