@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {createMuiTheme, ThemeProvider, useMediaQuery} from "@material-ui/core";
 import {RootState} from "../../store/reducers";
 import {connect} from "react-redux";
@@ -10,7 +10,6 @@ type ThemeSwitcherProps = {
 };
 
 const ThemeSwitcherContainer = ({children, currentTheme}: ThemeSwitcherProps) => {
-
     // Theme settings
     const [theme, setTheme] = useState({
         palette: { type: currentTheme }
