@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
-import {AppBar, IconButton, Button, Toolbar, Typography, withStyles, Drawer} from "@material-ui/core";
+import {AppBar, IconButton, Button, Toolbar, Typography, withStyles, Drawer, useTheme} from "@material-ui/core";
 import AppsIcon from '@material-ui/icons/Apps';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {connect} from "react-redux";
-import {RootState} from "../../../store/reducers";
 import {styles} from "./styles";
 import {IHeaderProps} from "./types";
+import {toggleTheme} from "../../../store/theme/actions";
 
 
 const HeaderComponent = (props: IHeaderProps) => {
@@ -16,6 +16,13 @@ const HeaderComponent = (props: IHeaderProps) => {
     const [open, setOpen] = useState(false);
     const handleDrawerToggle = () => {
         setOpen(prevState => !prevState);
+    };
+
+    const theme = useTheme();
+    function onHandleSwitchTheme() {
+        const switchTheme = theme.palette['type'] === "dark" ? "light" : "dark";
+        localStorage.themeType = switchTheme;
+        props.toggleTheme(switchTheme);
     };
 
     return (
@@ -27,11 +34,11 @@ const HeaderComponent = (props: IHeaderProps) => {
                         <AppsIcon onClick={handleDrawerToggle}/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Application
+                        WEBM videos
                     </Typography>
 
                     <div>
-                        <Button color="inherit" component={Link} to="/">Home</Button>
+                        <Button color="inherit" onClick={onHandleSwitchTheme}>Switch Theme</Button>
                         <Button color="inherit" component={Link} to="/"><ExitToAppIcon/></Button>
                     </div>
 
@@ -59,8 +66,8 @@ const HeaderComponent = (props: IHeaderProps) => {
     );
 };
 
-const mapStateToProps = (state: RootState) => ({
- // ...
-});
+const mapDispatchToProps = {
+    toggleTheme,
+};
 
-export const Header = connect(mapStateToProps, null)(withStyles(styles)(HeaderComponent));
+export const Header = connect(null, mapDispatchToProps)(withStyles(styles)(HeaderComponent));

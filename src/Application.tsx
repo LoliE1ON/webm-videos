@@ -1,17 +1,21 @@
 import React from 'react';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger'
 import { reducers } from './store/reducers';
 import { Provider } from 'react-redux';
+
+import { ThemeSwitcher } from "./components/template/ThemeSwitcher";
 import { Routes } from "./components/Routes";
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunk, logger));
 
 const Application = () => (
     <Provider store={store}>
-        <Routes/>
+        <ThemeSwitcher>
+            <Routes/>
+        </ThemeSwitcher>
     </Provider>
 );
 

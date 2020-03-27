@@ -2,7 +2,7 @@ import {TOGGLE_THEME} from './actions';
 import {IThemeState, ThemeActions} from "./types";
 
 const initialState: IThemeState = {
-    theme: "light",
+    theme: localStorage.themeType || "",
 };
 
 export function themeReducer(state = initialState, action: ThemeActions): IThemeState {

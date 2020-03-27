@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import {Home} from "./pages/home/Home";
-import {Header} from "./template/Header";
+import {Header} from "./template/Header/Header";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 export const Routes = () => (
