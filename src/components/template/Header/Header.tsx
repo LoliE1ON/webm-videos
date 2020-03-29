@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {AppBar, IconButton, Button, Toolbar, Typography, withStyles, Drawer, useTheme} from "@material-ui/core";
 import AppsIcon from '@material-ui/icons/Apps';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {styles} from "./styles";
 import {IHeaderProps} from "./types";
 import {toggleTheme} from "../../../store/theme/actions";
@@ -12,6 +12,7 @@ import {toggleTheme} from "../../../store/theme/actions";
 
 const HeaderComponent = (props: IHeaderProps) => {
     const { classes } = props;
+    const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
     const handleDrawerToggle = () => {
@@ -22,16 +23,16 @@ const HeaderComponent = (props: IHeaderProps) => {
     function onHandleSwitchTheme() {
         const switchTheme = theme.palette['type'] === "dark" ? "light" : "dark";
         localStorage.themeType = switchTheme;
-        props.toggleTheme(switchTheme);
+        dispatch(toggleTheme(switchTheme));
     };
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
+                    <IconButton onClick={handleDrawerToggle} edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
                                 component={Link} to="/">
-                        <AppsIcon onClick={handleDrawerToggle}/>
+                        <AppsIcon/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         WEBM videos
@@ -66,8 +67,4 @@ const HeaderComponent = (props: IHeaderProps) => {
     );
 };
 
-const mapDispatchToProps = {
-    toggleTheme,
-};
-
-export const Header = connect(null, mapDispatchToProps)(withStyles(styles)(HeaderComponent));
+export const Header = withStyles(styles)(HeaderComponent);

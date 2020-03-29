@@ -1,33 +1,27 @@
-import React, {useMemo, useState} from "react";
-import {createMuiTheme, ThemeProvider, useMediaQuery} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers";
-import {connect} from "react-redux";
 
-type Theme = 'light' | 'dark';
 type ThemeSwitcherProps = {
     children: any,
-    currentTheme?: Theme
 };
 
-const ThemeSwitcherContainer = ({children, currentTheme}: ThemeSwitcherProps) => {
+const ThemeSwitcher = ({children}: ThemeSwitcherProps) => {
+
+    const currentTheme = useSelector((state: RootState) => state.theme.theme);
+
     // Theme settings
     const [theme, setTheme] = useState({
         palette: { type: currentTheme }
     });
 
-    // Switch system theme
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-    useMemo(() => {
-        return setTheme({ palette: {
-            type: prefersDarkMode ? 'dark' : 'light'
-        }});
-    }, [prefersDarkMode]);
-
     // Toggle theme
-    useMemo(() => {
+    useEffect(() => {
         setTheme({ palette: {
             type: currentTheme
         }});
+        console.log("Change store theme")
     }, [currentTheme]);
 
     // Create theme
@@ -39,12 +33,6 @@ const ThemeSwitcherContainer = ({children, currentTheme}: ThemeSwitcherProps) =>
         </ThemeProvider>
     );
 };
-
-const mapStateToProps = (state: RootState) => ({
-    currentTheme: state.theme.theme
-});
-
-const ThemeSwitcher = connect(mapStateToProps, null)(ThemeSwitcherContainer);
 
 export {
     ThemeSwitcher

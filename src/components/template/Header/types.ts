@@ -7,6 +7,4 @@ export interface IHeaderProps {
         drawerPaper:string,
         drawerHeader: string
     };
-    toggleTheme: (theme: string) => void;
-
 }

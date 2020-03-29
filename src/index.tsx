@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import Application from './Application';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Application />
-  </React.StrictMode>,
+ReactDOM.render(<Application />,
   document.getElementById('root')
 );
 

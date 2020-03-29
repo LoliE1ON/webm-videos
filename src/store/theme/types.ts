@@ -1,7 +1,7 @@
 import {TOGGLE_THEME} from "./actions";
 
 export interface IThemeState {
-    theme: string;
+    theme: "light" | "dark" | undefined;
 }
 
 export interface IToggleThemeAction {
