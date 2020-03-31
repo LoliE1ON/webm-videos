@@ -3,13 +3,17 @@ import {ThunkAction} from "redux-thunk";
 import {RootState} from "../reducers";
 
 export interface IWebmState {
-    vendors: {}
+    data: [],
+    boards: [],
     isFetching: boolean
 }
 
 export interface ISetVideosAction {
     type: typeof SET_VIDEOS
-    payload: object
+    payload: {
+        boards: object,
+        data: object
+    }
 }
 
 export interface IToggleIsFetchingAction {
@@ -17,6 +21,15 @@ export interface IToggleIsFetchingAction {
     payload: boolean
 }
 
-export type IWebmActions = ISetVideosAction | IToggleIsFetchingAction;
+export type WebmBoard = {
+    name: string,
+    description: string,
+    threads: []
+};
 
+export type WebmThread = {
+    files: [],
+};
+
+export type IWebmActions = ISetVideosAction | IToggleIsFetchingAction;
 export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, IWebmActions>;

@@ -1,12 +1,10 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import {Home} from "./pages/home/Home";
-import {Header} from "./template/Header/Header";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { Home } from "./home/Home";
 
-import {useDispatch} from "react-redux";
-import {fetchVideo} from "../store/webm/actions";
+import { useDispatch } from "react-redux";
+import { fetchVideo } from "../store/webm/actions";
 
 export const Routes = () => {
 
@@ -19,21 +17,11 @@ export const Routes = () => {
 
     return (
         <BrowserRouter>
-            <CssBaseline />
-            <Header/>
-            <main>
-                <Switch>
-                    <Route path="/">
-
-                        <Home>
-                            <Home.Welcome>
-                                Welcome!
-                            </Home.Welcome>
-                        </Home>
-
-                    </Route>
-                </Switch>
-            </main>
+            <Switch>
+                <Route path="/">
+                    <Home/>
+                </Route>
+            </Switch>
         </BrowserRouter>
     );
 };

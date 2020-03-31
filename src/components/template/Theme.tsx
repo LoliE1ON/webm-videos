@@ -3,11 +3,7 @@ import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers";
 
-type ThemeSwitcherProps = {
-    children: any,
-};
-
-const ThemeSwitcher = ({children}: ThemeSwitcherProps) => {
+export const Theme = ({children}: {children: any}) => {
 
     const currentTheme = useSelector((state: RootState) => state.theme.theme);
 
@@ -19,8 +15,8 @@ const ThemeSwitcher = ({children}: ThemeSwitcherProps) => {
     // Toggle theme
     useEffect(() => {
         setTheme({ palette: {
-            type: currentTheme
-        }});
+                type: currentTheme
+            }});
         console.log("Change store theme")
     }, [currentTheme]);
 
@@ -32,8 +28,4 @@ const ThemeSwitcher = ({children}: ThemeSwitcherProps) => {
             { children }
         </ThemeProvider>
     );
-};
-
-export {
-    ThemeSwitcher
 };

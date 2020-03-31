@@ -2,8 +2,16 @@ import {IWebmActions, IWebmState} from "./types";
 import {SET_VIDEOS, TOOGLE_IS_FETCHING} from "./actions";
 
 const initialState: IWebmState = {
-    vendors: {},
+
+    // Files
+    data: [],
+
+    // Boards without files
+    boards: [],
+
+    // Loading?
     isFetching: false,
+
 };
 
 export function webmReducer(state = initialState, action: IWebmActions): IWebmState {
@@ -11,7 +19,8 @@ export function webmReducer(state = initialState, action: IWebmActions): IWebmSt
     switch (action.type) {
         case SET_VIDEOS:
             return Object.assign({}, state, {
-                vendors: action.payload
+                boards: action.payload.boards,
+                data: action.payload.data,
             });
         case TOOGLE_IS_FETCHING:
             return Object.assign({}, state, {

@@ -1,13 +1,16 @@
-import {ISetVideosAction, IToggleIsFetchingAction, ThunkType} from "./types";
+import {ISetVideosAction, IToggleIsFetchingAction, ThunkType, WebmThread, WebmBoard} from "./types";
 import { getVideos } from "../../api/webm";
 
 const SET_VIDEOS = 'SET_VIDEOS';
 const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
 
 // Actions
-const setVideos = (vendors: object): ISetVideosAction => ({
+const setVideos = (boards: object, data: object): ISetVideosAction => ({
     type: SET_VIDEOS,
-    payload: vendors,
+    payload: {
+        boards,
+        data
+    },
 });
 
 const toggleIsFetching = (status: boolean): IToggleIsFetchingAction => ({
@@ -20,9 +23,26 @@ const fetchVideo = (): ThunkType => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true));
 
-        const videos = await getVideos();
+        const data = await getVideos();
 
-        dispatch(setVideos(videos));
+        // Generate only boards, without files
+        const boards = Object.entries(data)
+        .map(((board: any) => {
+            return {
+                vendor: board[0],
+                boards: board[1].map((b: WebmBoard) => {
+                    return {
+                        name: b.name,
+                        description: b.description,
+                        total: b.threads.length && b.threads.reduce((total: number, thread: WebmThread) => total+thread.files.length, 0)
+                    }
+                })
+            }
+        }));
+
+
+
+        dispatch(setVideos(boards, data));
         dispatch(toggleIsFetching(false));
     };
 };
